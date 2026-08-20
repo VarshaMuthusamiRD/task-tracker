@@ -10,12 +10,12 @@ class TaskStore:
         self._tasks = []
         self._next_id = 1
  
-    def add(self, title, status="pending", tags=[]):
+    def add(self, title, status="pending", tags=None):
         task = {
             "id": self._next_id,
             "title": title,
             "status": status,
-            "tags": tags,
+            "tags": list(tags) if tags is not None else [],
         }
         self._tasks.append(task)
         self._next_id += 1
