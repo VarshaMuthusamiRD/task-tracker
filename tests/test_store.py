@@ -30,6 +30,20 @@ class TestTaskStore(unittest.TestCase):
         with self.assertRaises(KeyError):
             store.set_status(99, "done")
  
+    def test_set_status_fails_cleanly_for_an_unknown_id(self):
+        store = TaskStore()
+        store.add("Write the spec")
+        try:
+            store.set_status(99, "done")
+        except KeyError:
+            return
+        except TypeError:
+            self.fail(
+                "set_status(99, ...) raised TypeError instead of KeyError: "
+                "it dereferences find()'s None result without checking for it"
+            )
+        self.fail("set_status(99, ...) did not raise for an unknown id")
+
     def test_tags_are_not_shared_between_tasks(self):
         store = TaskStore()
         store.add("Write the spec")

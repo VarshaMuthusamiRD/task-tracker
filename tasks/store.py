@@ -29,6 +29,8 @@ class TaskStore:
  
     def set_status(self, task_id, status):
         task = self.find(task_id)
+        if task is None:
+            raise KeyError(task_id)
         task["status"] = status
         return task
  
