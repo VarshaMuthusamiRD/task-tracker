@@ -82,6 +82,26 @@ class TestTaskStore(unittest.TestCase):
         store.add("Write the spec")
         self.assertEqual(store.by_tag("urgent"), [])
 
+    def test_add_accepts_a_valid_due_date(self):
+        store = TaskStore()
+        task = store.add("Write the spec", due_date="2026-09-01")
+        self.assertEqual(task["due_date"], "2026-09-01")
+
+    def test_add_defaults_due_date_to_none(self):
+        store = TaskStore()
+        task = store.add("Write the spec")
+        self.assertIsNone(task["due_date"])
+
+    def test_add_rejects_an_invalid_due_date(self):
+        store = TaskStore()
+        with self.assertRaises(ValueError):
+            store.add("Write the spec", due_date="not-a-date")
+
+    def test_add_rejects_a_non_iso_due_date_format(self):
+        store = TaskStore()
+        with self.assertRaises(ValueError):
+            store.add("Write the spec", due_date="09/01/2026")
+
 
 if __name__ == "__main__":
     unittest.main()
