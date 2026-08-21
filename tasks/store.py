@@ -1,5 +1,7 @@
 """In-memory storage for tasks."""
- 
+
+import datetime
+
 VALID_STATUSES = ("pending", "in_progress", "done")
  
  
@@ -10,12 +12,18 @@ class TaskStore:
         self._tasks = []
         self._next_id = 1
  
-    def add(self, title, status="pending", tags=None):
+    def add(self, title, status="pending", tags=None, due_date=None):
+        if due_date is not None:
+            try:
+                datetime.date.fromisoformat(due_date)
+            except ValueError:
+                raise ValueError(f"invalid due_date: {due_date!r}")
         task = {
             "id": self._next_id,
             "title": title,
             "status": status,
             "tags": list(tags) if tags is not None else [],
+            "due_date": due_date,
         }
         self._tasks.append(task)
         self._next_id += 1
