@@ -57,7 +57,31 @@ class TestTaskStore(unittest.TestCase):
         snapshot = store.all()
         store.add("Review the spec")
         self.assertEqual(len(snapshot), 1)
- 
- 
+
+    def test_by_tag_returns_only_tasks_with_that_tag(self):
+        store = TaskStore()
+        store.add("Write the spec")
+        store.add("Review the spec")
+        store.add_tag(1, "urgent")
+        store.add_tag(2, "later")
+        matches = store.by_tag("urgent")
+        self.assertEqual(len(matches), 1)
+        self.assertEqual(matches[0]["title"], "Write the spec")
+
+    def test_by_tag_returns_multiple_matching_tasks(self):
+        store = TaskStore()
+        store.add("Write the spec")
+        store.add("Review the spec")
+        store.add_tag(1, "urgent")
+        store.add_tag(2, "urgent")
+        matches = store.by_tag("urgent")
+        self.assertEqual([t["id"] for t in matches], [1, 2])
+
+    def test_by_tag_returns_empty_list_when_no_task_has_the_tag(self):
+        store = TaskStore()
+        store.add("Write the spec")
+        self.assertEqual(store.by_tag("urgent"), [])
+
+
 if __name__ == "__main__":
     unittest.main()

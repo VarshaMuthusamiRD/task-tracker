@@ -41,3 +41,6 @@ class TaskStore:
  
     def all(self):
         return list(self._tasks)
+
+    def by_tag(self, tag):
+        return [task for task in self._tasks if tag in task["tags"]]
