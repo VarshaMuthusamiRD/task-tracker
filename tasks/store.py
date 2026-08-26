@@ -44,6 +44,8 @@ class TaskStore:
  
     def add_tag(self, task_id, tag):
         task = self.find(task_id)
+        if task is None:
+            raise KeyError(task_id)
         task["tags"].append(tag)
         return task
  
