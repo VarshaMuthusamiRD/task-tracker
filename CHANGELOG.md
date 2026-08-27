@@ -3,6 +3,7 @@
 ## Unreleased
 
 ### Added
+- Style guidance for the `changelog-update` skill so it describes vague commits by effect instead of copying the raw commit subject, and broader trigger phrases so it activates for more changelog-related requests.
 - `/refactor` and `/review` slash commands for guided refactoring and code review workflows.
 - Tests covering `completion_rate` rounding behavior and malformed task input.
 - `CLAUDE.md` documenting project commands, structure, and conventions.
