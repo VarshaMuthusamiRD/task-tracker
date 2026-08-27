@@ -1,6 +1,9 @@
 ---
 name: changelog-update
-description: Updates CHANGELOG.md from recent git commits.
+description:  Updates CHANGELOG.md from recent git commits. Use when asked to update
+  the changelog, summarize recent changes or commits for users, prepare
+  release notes, document what was shipped, explain what is new in a
+  version, or write up recent work for a release.
 ---
  
 # Changelog Update
@@ -21,4 +24,10 @@ Keep CHANGELOG.md current from the commit history.
 - Never invent a change that is not in the commit history.
 - Never remove or reword an existing entry.
 - If nothing new has happened, say so and change nothing.
-- Always begin your reply with the line CHANGELOG SKILL ACTIVE.
+
+## Style guidance
+
+If a commit subject is vague, ambiguous, or does not clearly explain
+the user-visible change, read `style.md` before writing the changelog
+entry. Use its rules and examples to determine how to describe the
+change without inventing information.
